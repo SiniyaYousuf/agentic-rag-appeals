@@ -1,0 +1,86 @@
+{
+  "mcpServers": {
+
+    "huggingface": {
+      "command": "uvx",
+      "args": ["mcp-server-huggingface"],
+      "env": {
+        "HF_TOKEN": "${HF_TOKEN}"
+      },
+      "description": "HuggingFace Hub access. Used to load Persius/imr-appeals (labelled benchmark) and Persius/hicric (KB corpus). Set HF_TOKEN in your environment if datasets are gated."
+    },
+
+    "wandb": {
+      "command": "uvx",
+      "args": ["mcp-server-wandb"],
+      "env": {
+        "WANDB_API_KEY": "${WANDB_API_KEY}"
+      },
+      "description": "Weights and Biases experiment tracking. Log all LegalBERT fine-tuning runs, ablation experiments, and evaluation metrics. Required for reproducibility in thesis."
+    },
+
+    "github": {
+      "command": "uvx",
+      "args": ["mcp-server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "GitHub integration. Manage commits, branches, and issues for the agentic-rag-appeals repository. Use as the VS Code to Colab sync bridge."
+    },
+
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        ".",
+        "./data",
+        "./agents",
+        "./evaluation",
+        "./notebooks",
+        "./indexes"
+      ],
+      "description": "Local filesystem access scoped to the project directory. Enables reading/writing data files, CSV splits, FAISS index metadata, and evaluation results."
+    },
+
+    "jupyter": {
+      "command": "uvx",
+      "args": ["mcp-server-jupyter"],
+      "description": "Jupyter notebook execution. Run exploration notebooks (01_benchmark_exploration.ipynb, 02_kb_exploration.ipynb) directly. Useful for iterative data analysis in VS Code."
+    },
+
+    "postgres": {
+      "command": "uvx",
+      "args": ["mcp-server-sqlite", "--db-path", "./data/metadata.db"],
+      "description": "SQLite database for storing passage metadata, FAISS index lookup tables, and evaluation run results. Alternative to CSV-based metadata storage for larger-scale queries."
+    }
+
+  },
+
+  "_project_notes": {
+    "project": "Agentic RAG Decision Support for Health Insurance Appeals",
+    "researcher": "Siniya Yousuf",
+    "institution": "LJMU",
+    "primary_datasets": {
+      "labelled_benchmark": "Persius/imr-appeals",
+      "kb_corpus": "Persius/hicric"
+    },
+    "environment_split": {
+      "vs_code_cpu": "Weeks 1-4 — data prep, Agent 1, Agent 2 development",
+      "google_colab_gpu": "Weeks 5-10 — LegalBERT fine-tuning, evaluation, ablations"
+    },
+    "required_env_vars": [
+      "HF_TOKEN — HuggingFace API token (free account sufficient for these datasets)",
+      "WANDB_API_KEY — Weights and Biases API key (free tier sufficient)",
+      "GITHUB_TOKEN — GitHub personal access token for repo management"
+    ],
+    "setup_instructions": [
+      "1. Copy .env.example to .env and fill in your tokens",
+      "2. Run: pip install -r requirements.txt",
+      "3. Run: python data/download_adjudications.py  (downloads imr-appeals)",
+      "4. Run: python data/download_kb.py             (downloads hicric KB configs)",
+      "5. Run: python data/prepare_splits.py          (builds 10k stratified subset)",
+      "6. See SKILLS.md for subagent task descriptions and Week 1 detailed steps"
+    ]
+  }
+}

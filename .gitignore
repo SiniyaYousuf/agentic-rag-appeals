@@ -1,0 +1,44 @@
+# Virtual environment
+venv/
+env/
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Data files (too large for GitHub)
+data/raw/*.jsonl
+data/raw/*.csv
+data/processed/*.csv
+data/kb_docs/
+
+# FAISS indexes (too large)
+indexes/faiss_index/
+
+# Checkpoints (model weights)
+checkpoints/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment variables
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+wandb/
+
+# Evaluation results (optional — can commit these)
+evaluation/results/*.json
+evaluation/results/*.csv

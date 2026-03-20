@@ -1,0 +1,14 @@
+torch>=2.0
+transformers>=4.38
+datasets>=2.18
+sentence-transformers>=3.0
+faiss-cpu>=1.8
+scikit-learn>=1.5
+pandas>=2.0
+numpy>=1.26
+tqdm
+accelerate>=0.27
+wandb>=0.17
+ipykernel
+matplotlib
+seaborn
