@@ -98,11 +98,26 @@ df['label'] = df.apply(make_label, axis=1)
 
 **Columns in all hicric configs:** `text`, `tags`, `date_accessed`, `source_url`, `source_md5`, `relative_path`
 
-**Working KB filter (gives ~2,544 docs ≈ proposal's 2,551):**
+**Working KB filter — VERIFIED 2026-07 (supersedes the proposal's "~2,551 docs" claim):**
 ```python
-# Include: all regulatory-guidance + docs with 'kb' tag from other configs
-df_kb_filtered = df[df['tags'].apply(lambda t: 'kb' in t if isinstance(t, list) else False)]
+# Include: all regulatory-guidance + rows with 'kb' tag from other configs.
+# NOTE: to_pandas() yields numpy arrays, not lists — use list coercion:
+df_kb_filtered = df[df['tags'].apply(lambda t: 'kb' in list(t))]
 ```
+
+**Actual kb-tagged row counts (measured, not the proposal's estimate):**
+| Config | kb-tagged rows | Unique source docs (source_md5) |
+|--------|---------------|--------------------------------|
+| `regulatory-guidance` (all rows) | 1,110 | ~1,105 |
+| `legal` | 1,348 | ~340 |
+| `clinical-guidelines` | 37,970 | 1 (single scraped source, pre-fragmented) |
+| Working KB total (3 configs) | 40,428 | 1,445 |
+
+**The proposal's "~2,551 doc KB" does NOT match any row-level count** — hicric rows
+are heterogeneous chunks (legal rows average ~442KB; clinical rows are pre-split
+fragments of one source). The working KB is 40,428 rows / ~166M words (40,418 after exact-text dedup), chunked to
+1,121,403 MiniLM passages for the FAISS index (built 2026-07-16, fp32 torch backend,
+IndexFlatIP, chunk=180 words / overlap=30). Thesis must report these corrected numbers.
 
 **NOTE:** There is NO separate "kb" config — the `kb` tag lives inside the `tags` list field.
 

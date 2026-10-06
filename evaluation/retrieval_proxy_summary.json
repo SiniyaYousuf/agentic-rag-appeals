@@ -1,0 +1,48 @@
+{
+  "n_cases": 200,
+  "top_k": 5,
+  "mean_top1_score": {
+    "full": 0.62,
+    "null": 0.6557
+  },
+  "mean_top5_mean_score": {
+    "full": 0.5927,
+    "null": 0.63
+  },
+  "score_delta_full_minus_null": {
+    "top1": -0.0357,
+    "top5_mean": -0.0373
+  },
+  "per_class": {
+    "Insufficient": {
+      "n_cases": 2,
+      "full_top1_mean": 0.5534,
+      "null_top1_mean": 0.5742,
+      "full_top5_mean": 0.5178,
+      "null_top5_mean": 0.5641
+    },
+    "Overturned": {
+      "n_cases": 91,
+      "full_top1_mean": 0.6281,
+      "null_top1_mean": 0.6613,
+      "full_top5_mean": 0.5996,
+      "null_top5_mean": 0.6367
+    },
+    "Upheld": {
+      "n_cases": 107,
+      "full_top1_mean": 0.6144,
+      "null_top1_mean": 0.6524,
+      "full_top5_mean": 0.5882,
+      "null_top5_mean": 0.6256
+    }
+  },
+  "unique_kb_docs_retrieved": {
+    "full": 582,
+    "null": 592
+  },
+  "agent1_fallback_rate": 0.06,
+  "low_confidence_cases_top1_below_0.3": {
+    "full": [],
+    "null": []
+  }
+}
